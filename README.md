@@ -7,7 +7,7 @@
 
 ## :scroll: Description
 Application is about Puppy Adoption, first page displays list of puppies from local data source,
-clicking on which opens a detail page with form to request for adoption included some animations.
+clicking on which opens a detail page with form to request for adoption, also included some animations.
 
 
 ## :bulb: Motivation and Context
