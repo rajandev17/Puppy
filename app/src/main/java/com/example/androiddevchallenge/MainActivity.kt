@@ -28,7 +28,6 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 class MainActivity : AppCompatActivity() {
     private val selectedPuppy = mutableStateOf<DogInfo?>(null)
 
-
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +41,6 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         selectedPuppy.value?.let {
             selectedPuppy.value = null
-        }?:super.onBackPressed()
+        } ?: super.onBackPressed()
     }
 }

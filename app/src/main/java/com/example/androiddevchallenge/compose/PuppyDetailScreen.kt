@@ -1,9 +1,36 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.compose
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
@@ -40,10 +67,11 @@ fun PuppyDetail(dogInfo: DogInfo?, animationState: MutableState<Int>, onClose: (
 }
 
 @Composable
-fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: () -> Unit){
+fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: () -> Unit) {
     Card(
         modifier = Modifier
-            .fillMaxSize(), shape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp), elevation = 6.dp
+            .fillMaxSize(),
+        shape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp), elevation = 6.dp
     ) {
         Column {
             Box(contentAlignment = Alignment.TopEnd) {
@@ -85,7 +113,8 @@ fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: (
                     modifier = fullWidthModifier,
                     onValueChange = {
                         nameState.value = it
-                    })
+                    }
+                )
                 Space(height = 8)
                 OutlinedTextField(
                     value = emailState.value,
@@ -93,20 +122,24 @@ fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: (
                     modifier = fullWidthModifier,
                     onValueChange = {
                         emailState.value = it
-                    })
+                    }
+                )
                 Space(height = 16)
-                Button(onClick = {
-                    if(nameState.value.text.isEmpty()){
-                        snackBarState.value = SnackBarInfo("Please provide your Full Name", true)
-                        return@Button
-                    }
-                    if(emailState.value.text.isEmpty()){
-                        snackBarState.value = SnackBarInfo("Please provide your Email address", true)
-                        return@Button
-                    }
-                    onClose.invoke()
-                    snackBarState.value = SnackBarInfo("Thanks for your request, We will process it and contact you shortly.")
-                }, modifier = fullWidthModifier.height(45.dp)) {
+                Button(
+                    onClick = {
+                        if (nameState.value.text.isEmpty()) {
+                            snackBarState.value = SnackBarInfo("Please provide your Full Name", true)
+                            return@Button
+                        }
+                        if (emailState.value.text.isEmpty()) {
+                            snackBarState.value = SnackBarInfo("Please provide your Email address", true)
+                            return@Button
+                        }
+                        onClose.invoke()
+                        snackBarState.value = SnackBarInfo("Thanks for your request, We will process it and contact you shortly.")
+                    },
+                    modifier = fullWidthModifier.height(45.dp)
+                ) {
                     Text(
                         text = "ADOPT ME",
                         style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),

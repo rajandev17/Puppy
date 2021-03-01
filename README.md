@@ -6,12 +6,14 @@
 
 
 ## :scroll: Description
-<!--- Describe your app in one or two sentences -->
+Application is about Puppy Adoption, first page displays list of puppies from local data source,
+clicking on which opens a detail page with form to request for adoption included some animations.
 
 
 ## :bulb: Motivation and Context
-<!--- Optionally point readers to interesting parts of your submission. -->
-<!--- What are you especially proud of? -->
+Using Jetpack compose Animations to create slide_in effect for detail screen and
+using kenburnsview to transform image once every 2 frames is something interesting in this case.
+Used annotatedStrings, SnackBar, gradients and Bottomsheet like design for detail screen.
 
 
 ## :camera_flash: Screenshots

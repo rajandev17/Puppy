@@ -1,5 +1,19 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.compose
-
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -9,8 +23,23 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Snackbar
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -41,11 +70,11 @@ private val animateState = mutableStateOf(2)
 @Composable
 fun App(selectedPuppy: MutableState<DogInfo?>, lifeCycleScope: LifecycleCoroutineScope) {
     val context = LocalContext.current
-    val dogDataSource = remember{ DogDataSource(context) }
+    val dogDataSource = remember { DogDataSource(context) }
     Scaffold(topBar = { AppTopBar() }) {
         Surface(color = MaterialTheme.colors.background) {
-            PuppyListScreen(dogs = dogDataSource.fetchDogs("data.json")){
-                if(selectedPuppy.value == null) {
+            PuppyListScreen(dogs = dogDataSource.fetchDogs("data.json")) {
+                if (selectedPuppy.value == null) {
                     selectedPuppy.value = it
                 }
             }
@@ -53,14 +82,16 @@ fun App(selectedPuppy: MutableState<DogInfo?>, lifeCycleScope: LifecycleCoroutin
     }
     AnimatedVisibility(
         selectedPuppy.value != null,
-        enter = slideIn({ fullSize -> IntOffset(0, fullSize.height) },
+        enter = slideIn(
+            { fullSize -> IntOffset(0, fullSize.height) },
             tween(200, easing = LinearOutSlowInEasing)
         ),
-        exit = slideOut( { IntOffset(-180, 50) },
+        exit = slideOut(
+            { IntOffset(-180, 50) },
             tween(150, easing = FastOutSlowInEasing)
         )
     ) {
-        PuppyDetail(dogInfo = selectedPuppy.value, animationState = animateState){
+        PuppyDetail(dogInfo = selectedPuppy.value, animationState = animateState) {
             selectedPuppy.value = null
         }
     }
@@ -75,15 +106,15 @@ fun App(selectedPuppy: MutableState<DogInfo?>, lifeCycleScope: LifecycleCoroutin
             }
         }
     }
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter){
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         SnackBar(lifeCycleScope = lifeCycleScope)
     }
 }
 
 @Composable
-fun SnackBar(lifeCycleScope: LifecycleCoroutineScope){
+fun SnackBar(lifeCycleScope: LifecycleCoroutineScope) {
     snackBarState.value?.let {
-        Snackbar(elevation = 20.dp, backgroundColor = if(it.error) red else green, contentColor = Color.White) {
+        Snackbar(elevation = 20.dp, backgroundColor = if (it.error) red else green, contentColor = Color.White) {
             Text(text = it.message)
         }
         lifeCycleScope.launch {
@@ -94,17 +125,24 @@ fun SnackBar(lifeCycleScope: LifecycleCoroutineScope){
 }
 
 @Composable
-fun AppTopBar(){
-    TopAppBar(modifier = Modifier
-        .fillMaxWidth()
-        .height(50.dp)) {
-        Row(modifier = Modifier
+fun AppTopBar() {
+    TopAppBar(
+        modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-            Icon(imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_pets_24), contentDescription = "", tint = Color.White,
+            .height(50.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_pets_24), contentDescription = "", tint = Color.White,
                 modifier = Modifier
                     .size(50.dp)
-                    .padding(16.dp))
+                    .padding(16.dp)
+            )
             Text(text = "Puppies", style = MaterialTheme.typography.h6, textAlign = TextAlign.Start)
         }
     }
