@@ -1,0 +1,136 @@
+{
+  "dogs": [
+    {
+      "id": 15,
+      "tags": [
+        "Afador",
+        "Labrador",
+        "Male"
+      ],
+      "name": "Apollo",
+      "age": "2",
+      "photo": "https://thehappypuppysite.com/wp-content/uploads/2019/03/How-Long-Do-Labrador-Retriever-Live-long.jpg",
+      "description": "The pug is a breed of dog with physically distinctive features of a wrinkly, short-muzzled face, and curled tail. The breed has a fine, glossy coat that comes in a variety of colours, most often fawn or black, and a compact square body with well-developed muscles."
+    },
+    {
+      "id": 16,
+      "tags": [
+        "Afador",
+        "Siber",
+        "Male"
+      ],
+      "name": "Benji",
+      "age": "5",
+      "photo": "https://images2.fanpop.com/image/photos/9900000/Lying-wolf-wolves-9911852-1280-960.jpg",
+      "description": "The Siberian Husky is a medium-sized working dog breed. The breed belongs to the Spitz genetic family. It is recognizable by its thickly furred double coat, erect triangular ears, and distinctive markings, and is smaller than a very similar-looking dog, the Alaskan Malamute."
+    },
+    {
+      "id": 17,
+      "tags": [
+        "Afador",
+        "Pug",
+        "Female"
+      ],
+      "name": "Daisy",
+      "age": "6",
+      "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F37%2F2020%2F12%2F14%2FPug-dog-care.jpg",
+      "description": "The pug is a breed of dog with physically distinctive features of a wrinkly, short-muzzled face, and curled tail. The breed has a fine, glossy coat that comes in a variety of colours, most often fawn or black, and a compact square body with well-developed muscles."
+    },
+    {
+      "id": 18,
+      "tags": [
+        "Afador",
+        "Pom",
+        "Male"
+      ],
+      "name": "Baily",
+      "age": "7",
+      "photo": "https://www.everypaw.com/uploads/Pomeranian%20breed%20guide%202.jpg",
+      "description": "The Pomeranian is a breed of dog of the Spitz type that is named for the Pomerania region in north-west Poland and north-east Germany in Central Europe. Classed as a toy dog breed because of its small size, the Pomeranian is descended from larger Spitz-type dogs, specifically the German Spitz."
+    },
+    {
+      "id": 19,
+      "tags": [
+        "Afador",
+        "Bul",
+        "Male"
+      ],
+      "name": "Elvis",
+      "age": "4",
+      "photo": "https://www.dogtime.com/assets/uploads/2019/08/Labrabull-mixed-dog-breed-pictures-cover.jpg",
+      "description": "The Bulldog, also known as the British Bulldog or English Bulldog, is a medium-sized dog breed. It is a muscular, hefty dog with a wrinkled face and a distinctive pushed-in nose. The Kennel Club, the American Kennel Club, and the United Kennel Club oversee breeding records."
+    },
+    {
+      "id": 20,
+      "tags": [
+        "Afador",
+        "Airedale",
+        "Female"
+      ],
+      "name": "Lola",
+      "age": "4",
+      "photo": "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/30202205/Airedale-Terrier-standing-stacked-outdoors.jpg",
+      "description": "Known as the “King of Terriers,” the Airedale is indeed the largest of all terriers. The dog breed originated in the Aire Valley of Yorkshire, and was created to catch otters and rats in the region between the Aire and Wharfe Rivers. An able sporting dog, he became an ideal working dog as well, proving his worth during World War I. Intelligent, outgoing, and confident, the Airedale possesses a wonderful playful streak that delights his owners."
+    },
+    {
+      "id": 21,
+      "tags": [
+        "Akbash",
+        "Affe",
+        "Female"
+      ],
+      "name": "Lucy",
+      "age": "3",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdJNEv4Z1aFKf0g84s7SWS0HHCRM3ruWeAmQ&usqp=CAU",
+      "description": "Canines in the Affenpinscher dog breed were originally created to be ratters in homes, stables, and shops. Bred down in size, they moved up in the world, becoming ladies’ companions. Today, they are happy, mischievous companion dogs."
+    },
+    {
+      "id": 22,
+      "tags": [
+        "Akbash",
+        "Hound",
+        "Female"
+      ],
+      "name": "Lucy",
+      "age": "9",
+      "photo": "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/13191700/Bavarian.190758538.jpg",
+      "description": "The Afghan Hound is elegance personified. This unique, ancient dog breed has an appearance quite unlike any other: dramatic silky coat, exotic face, and thin, fashion-model build. Looks aside, Afghan enthusiasts describe this hound as both aloof and comical. Hailing from Afghanistan, where the original name for the breed was Tazi, the Afghan is thought to date back to the pre-Christian era and is considered one of oldest breeds."
+    },
+    {
+      "id": 27,
+      "tags": [
+        "American Bulldog",
+        "Afghan",
+        "Female"
+      ],
+      "name": "Bella",
+      "age": "6",
+      "photo": "https://images.ctfassets.net/440y9b545yd9/Y9gB3irmojuBsdPo6pc39/b5ef99988db3a04a3357b07ea0abe0c3/Afghan_Hound850__1_.jpg",
+      "description": "The Afghan Hound is elegance personified. This unique, ancient dog breed has an appearance quite unlike any other: dramatic silky coat, exotic face, and thin, fashion-model build. Looks aside, Afghan enthusiasts describe this hound as both aloof and comical. Hailing from Afghanistan, where the original name for the breed was Tazi, the Afghan is thought to date back to the pre-Christian era and is considered one of oldest breeds."
+    },
+    {
+      "id": 28,
+      "tags": [
+        "American Bulldog",
+        "Lester",
+        "Male"
+      ],
+      "name": "lester",
+      "age": "12",
+      "photo": "https://www.gannett-cdn.com/presto/2020/11/12/PPYR/b6454aae-6b02-481b-9016-dda5a280e9cc-lester_dog.jpg?auto=webp&crop=959,540,x0,y0&format=pjpg&width=1200",
+      "description": "The Afghan Hound is elegance personified. This unique, ancient dog breed has an appearance quite unlike any other: dramatic silky coat, exotic face, and thin, fashion-model build. Looks aside, Afghan enthusiasts describe this hound as both aloof and comical. Hailing from Afghanistan, where the original name for the breed was Tazi, the Afghan is thought to date back to the pre-Christian era and is considered one of oldest breeds."
+    },
+    {
+      "id": 30,
+      "tags": [
+        "Caucasian Shepherd",
+        "Female"
+      ],
+      "name": "Scooby",
+      "photo": "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/14131930/GettyImages-1095398138.jpg",
+      "age": "10",
+      "description": "The Afghan Hound is elegance personified. This unique, ancient dog breed has an appearance quite unlike any other: dramatic silky coat, exotic face, and thin, fashion-model build. Looks aside, Afghan enthusiasts describe this hound as both aloof and comical. Hailing from Afghanistan, where the original name for the breed was Tazi, the Afghan is thought to date back to the pre-Christian era and is considered one of oldest breeds."
+    }
+  ],
+  "count": 11
+}
