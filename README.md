@@ -20,6 +20,7 @@ Used annotatedStrings, SnackBar, gradients and Bottomsheet like design for detai
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
 
+![https://media.giphy.com/media/nCEzCwOhVhiWHdpeN9/giphy.gif](https://media.giphy.com/media/nCEzCwOhVhiWHdpeN9/giphy.gif)
 ## License
 ```
 Copyright 2020 The Android Open Source Project
