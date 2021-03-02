@@ -12,15 +12,18 @@ clicking on which opens a detail page with form to request for adoption, also in
 
 ## :bulb: Motivation and Context
 Using Jetpack compose Animations to create slide_in effect for detail screen and
-using kenburnsview to transform image once every 2 frames is something interesting in this case.
-Used annotatedStrings, SnackBar, gradients and Bottomsheet like design for detail screen.
+using kenburnsview to transform image once every 2 frames is something I found interesting which also helped me understand how composition works.
+Used annotatedStrings, SnackBar, gradients and bottom sheet like design for detail screen.
+
+## :film_projector: Preview
+<img src="results/puppy.gif?raw=true" width="260"/>
 
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
 
-![https://media.giphy.com/media/nCEzCwOhVhiWHdpeN9/giphy.gif](https://media.giphy.com/media/nCEzCwOhVhiWHdpeN9/giphy.gif)
+
 ## License
 ```
 Copyright 2020 The Android Open Source Project

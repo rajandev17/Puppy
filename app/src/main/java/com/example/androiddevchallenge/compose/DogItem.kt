@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -55,6 +56,7 @@ import com.flaviofaria.kenburnsview.KenBurnsView
 import java.util.Locale
 
 val mockDogInfo = DogInfo(
+    "1",
     "Henry",
     arrayListOf("Alfador", "Male"),
     "",
@@ -94,15 +96,16 @@ fun DogItem(dogInfo: DogInfo, isFirstCard: Boolean = false, onClick: () -> Unit)
 }
 
 @Composable
-fun ColumnScope.DogInfoLayout(dogInfo: DogInfo, descMaxLines: Int = 2) {
+fun ColumnScope.DogInfoLayout(dogInfo: DogInfo, descMaxLines: Int = 2, color: Color = MaterialTheme.colors.onSurface) {
     val padding = Modifier.padding(horizontal = 8.dp)
     Text(
         text = dogInfo.name,
         style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
-        modifier = padding
+        modifier = padding,
+        color = color
     )
     Space(height = 4)
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium, LocalContentColor provides color) {
         Text(
             text = dogInfo.description,
             style = MaterialTheme.typography.body2,
@@ -172,7 +175,7 @@ fun DogDetailCard(dogInfo: DogInfo, animateState: MutableState<Int>) {
                         .background(brush = Brush.verticalGradient(backgroundGradient(), 0F))
                 ) {
                     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom) {
-                        DogInfoLayout(dogInfo, 4)
+                        DogInfoLayout(dogInfo, 4, Color.White)
                     }
                 }
             }
@@ -200,10 +203,10 @@ fun rememberKenBurnsView(): KenBurnsView {
 fun backgroundGradient(): List<Color> {
     return listOf(
         Color.Transparent,
-        MaterialTheme.colors.surface.copy(alpha = 0.3F),
-        MaterialTheme.colors.surface.copy(alpha = 0.4F),
-        MaterialTheme.colors.surface.copy(alpha = 0.9F),
-        MaterialTheme.colors.surface
+        Color.Black.copy(alpha = 0.3F),
+        Color.Black.copy(alpha = 0.4F),
+        Color.Black.copy(alpha = 0.9F),
+        Color.Black
     )
 }
 

@@ -18,6 +18,8 @@ package com.example.androiddevchallenge.model
 import com.google.gson.annotations.SerializedName
 
 data class DogInfo(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("tags")

@@ -19,28 +19,19 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.lifecycleScope
 import com.example.androiddevchallenge.compose.App
-import com.example.androiddevchallenge.model.DogInfo
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
-    private val selectedPuppy = mutableStateOf<DogInfo?>(null)
 
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                App(selectedPuppy, lifecycleScope)
+                App(lifecycleScope)
             }
         }
-    }
-
-    override fun onBackPressed() {
-        selectedPuppy.value?.let {
-            selectedPuppy.value = null
-        } ?: super.onBackPressed()
     }
 }

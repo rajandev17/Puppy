@@ -15,14 +15,7 @@
  */
 package com.example.androiddevchallenge.compose
 
-import android.util.Log
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
@@ -41,7 +34,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -51,9 +43,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.navigation.NavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.data.DogDataSource
 import com.example.androiddevchallenge.model.DogInfo
@@ -68,41 +66,33 @@ private val animateState = mutableStateOf(2)
 
 @ExperimentalAnimationApi
 @Composable
-fun App(selectedPuppy: MutableState<DogInfo?>, lifeCycleScope: LifecycleCoroutineScope) {
+fun App(lifeCycleScope: LifecycleCoroutineScope) {
     val context = LocalContext.current
     val dogDataSource = remember { DogDataSource(context) }
-    Scaffold(topBar = { AppTopBar() }) {
-        Surface(color = MaterialTheme.colors.background) {
-            PuppyListScreen(dogs = dogDataSource.fetchDogs("data.json")) {
-                if (selectedPuppy.value == null) {
-                    selectedPuppy.value = it
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "list") {
+        composable("list") {
+            ListLayout(
+                dogDataSource = dogDataSource,
+                navController = navController
+            )
+        }
+        composable(
+            "detail/{dogId}",
+            arguments = listOf(
+                navArgument("dogId") {
+                    type = NavType.StringType
                 }
-            }
-        }
-    }
-    AnimatedVisibility(
-        selectedPuppy.value != null,
-        enter = slideIn(
-            { fullSize -> IntOffset(0, fullSize.height) },
-            tween(200, easing = LinearOutSlowInEasing)
-        ),
-        exit = slideOut(
-            { IntOffset(-180, 50) },
-            tween(150, easing = FastOutSlowInEasing)
-        )
-    ) {
-        PuppyDetail(dogInfo = selectedPuppy.value, animationState = animateState) {
-            selectedPuppy.value = null
-        }
-    }
-    lifeCycleScope.launchWhenStarted {
-        var plus = true
-        while (true) {
-            delay(32)
-            selectedPuppy.value?.let {
-                animateState.value = animateState.value + 1 * if (plus) 1 else -1
-                Log.d("AnimatedVal", animateState.value.toString())
-                plus = !plus
+            )
+        ) {
+            val selectedPuppyId = it.arguments?.getString("dogId")
+            val selectedPuppy = dogDataSource.getDogById(selectedPuppyId)
+            selectedPuppy?.let {
+                DetailLayout(
+                    selectedPuppy = selectedPuppy,
+                    lifeCycleScope = lifeCycleScope,
+                    navController = navController
+                )
             }
         }
     }
@@ -112,9 +102,46 @@ fun App(selectedPuppy: MutableState<DogInfo?>, lifeCycleScope: LifecycleCoroutin
 }
 
 @Composable
+fun ListLayout(dogDataSource: DogDataSource, navController: NavController) {
+    Scaffold(topBar = { AppTopBar() }) {
+        Surface(color = MaterialTheme.colors.background) {
+            PuppyListScreen(dogs = dogDataSource.fetchDogs()) {
+                navController.navigate("detail/${it.id}")
+            }
+        }
+    }
+}
+
+@ExperimentalAnimationApi
+@Composable
+fun DetailLayout(
+    selectedPuppy: DogInfo,
+    lifeCycleScope: LifecycleCoroutineScope,
+    navController: NavController
+) {
+    PuppyDetail(dogInfo = selectedPuppy, animationState = animateState, lifeCycleScope) {
+        navController.popBackStack()
+    }
+    lifeCycleScope.launchWhenStarted {
+        var plus = true
+        while (true) {
+            delay(32)
+            selectedPuppy.let {
+                animateState.value = animateState.value + 1 * if (plus) 1 else -1
+                plus = !plus
+            }
+        }
+    }
+}
+
+@Composable
 fun SnackBar(lifeCycleScope: LifecycleCoroutineScope) {
     snackBarState.value?.let {
-        Snackbar(elevation = 20.dp, backgroundColor = if (it.error) red else green, contentColor = Color.White) {
+        Snackbar(
+            elevation = 20.dp,
+            backgroundColor = if (it.error) red else green,
+            contentColor = Color.White
+        ) {
             Text(text = it.message)
         }
         lifeCycleScope.launch {
@@ -135,10 +162,13 @@ fun AppTopBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_pets_24), contentDescription = "", tint = Color.White,
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_pets_24),
+                contentDescription = "",
+                tint = Color.White,
                 modifier = Modifier
                     .size(50.dp)
                     .padding(16.dp)

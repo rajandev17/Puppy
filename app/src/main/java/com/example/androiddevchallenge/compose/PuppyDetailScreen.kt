@@ -15,6 +15,16 @@
  */
 package com.example.androiddevchallenge.compose
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,7 +49,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,24 +60,39 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.androiddevchallenge.fullWidthModifier
 import com.example.androiddevchallenge.model.DogInfo
 import com.example.androiddevchallenge.model.SnackBarInfo
+import kotlinx.coroutines.delay
 
+@ExperimentalAnimationApi
 @Composable
-fun PuppyDetail(dogInfo: DogInfo?, animationState: MutableState<Int>, onClose: () -> Unit) {
+fun PuppyDetail(dogInfo: DogInfo?, animationState: MutableState<Int>, lifecycleCoroutineScope: LifecycleCoroutineScope, onClose: () -> Unit) {
     dogInfo ?: return
     Surface(color = Color.Black.copy(alpha = 0.9F)) {
-        Column {
+        Column(Modifier.fillMaxSize()) {
             Box(fullWidthModifier, contentAlignment = Alignment.CenterEnd) {
                 CloseButton(onClose)
             }
             Space(height = 8)
-            DetailLayout(dogInfo = dogInfo, animationState = animationState, onClose)
+            val visibleState = remember { mutableStateOf(false) }
+            AnimatedVisibility(
+                visible = visibleState.value,
+                enter = slideInVertically({ it }, animationSpec = tween(180, 0, LinearOutSlowInEasing)) + fadeIn(),
+                exit = slideOutVertically() + fadeOut()
+            ) {
+                DetailLayout(dogInfo = dogInfo, animationState = animationState, onClose)
+            }
+            lifecycleCoroutineScope.launchWhenStarted {
+                delay(50)
+                visibleState.value = true
+            }
         }
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: () -> Unit) {
     Card(
@@ -79,8 +106,14 @@ fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: (
             }
             val nameState = remember { mutableStateOf(TextFieldValue("")) }
             val emailState = remember { mutableStateOf(TextFieldValue("")) }
-
-            Column(Modifier.padding(12.dp)) {
+            val targetValueState = remember { mutableStateOf(0F) }
+            val alphaState = animateFloatAsState(targetValueState.value, tween(300, 200, LinearEasing))
+            Column(
+                Modifier
+                    .padding(12.dp)
+                    .graphicsLayer { alpha = alphaState.value }
+                    .alpha(alphaState.value)
+            ) {
                 val text = buildAnnotatedString {
                     pushStyle(
                         MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
@@ -128,15 +161,18 @@ fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: (
                 Button(
                     onClick = {
                         if (nameState.value.text.isEmpty()) {
-                            snackBarState.value = SnackBarInfo("Please provide your Full Name", true)
+                            snackBarState.value =
+                                SnackBarInfo("Please provide your Full Name", true)
                             return@Button
                         }
                         if (emailState.value.text.isEmpty()) {
-                            snackBarState.value = SnackBarInfo("Please provide your Email address", true)
+                            snackBarState.value =
+                                SnackBarInfo("Please provide your Email address", true)
                             return@Button
                         }
                         onClose.invoke()
-                        snackBarState.value = SnackBarInfo("Thanks for your request, We will process it and contact you shortly.")
+                        snackBarState.value =
+                            SnackBarInfo("Thanks for your request, We will process it and contact you shortly.")
                     },
                     modifier = fullWidthModifier.height(45.dp)
                 ) {
@@ -151,6 +187,7 @@ fun DetailLayout(dogInfo: DogInfo, animationState: MutableState<Int>, onClose: (
                     )
                 }
             }
+            targetValueState.value = 1F
         }
     }
 }
